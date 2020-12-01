@@ -34,11 +34,45 @@ const postSchema = new mongoose.Schema({
 const User = user_db.model('User', userSchema);
 const Post = post_db.model('Post', postSchema);
 
-app.get('/', async (req, res) => {
-  res.send("Hello World");
+// Create
+app.post('/api/', async (req, res) => {
+  try {
+    res.send("Create Placeholder");
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
 });
 
-// add all api calls here
+// Read
+app.get('/api/', async (req, res) => {
+  try {
+    res.send("Read Placeholder");
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+// Update
+app.put('/api/', async (req, res) => {
+  try {
+    res.send("Update Placeholder");
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+// Delete
+app.delete('/api/', async (req, res) => {
+  try {
+    res.send("Delete Placeholder");
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
 
