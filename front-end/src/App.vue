@@ -20,6 +20,7 @@
         <router-link to="/catagories">Catagories</router-link> |
         <router-link to="/post">Post</router-link>
       </div>
+      <br/>
     </div>
     <div class="header" id="small" v-if="this.$router.currentRoute.name !== 'Home'">
       <div id="nav">
@@ -37,13 +38,31 @@
       <div class="title">
         <h1>The Mountain</h1>
       </div>
-
+      <br/>
+      <hr/>
     </div>
     <router-view/>
+    <div class="footer-container">
+      <div class="footer">
+        <a href="https://github.com/IanKirkham/creativeproject4">Visit our Github Page!</a>
+        <p>Ian Kirkham and Zach Payne</p>
+        <p><em>Get thee into the Mountain</em></p>
+      </div>
+    </div>
   </div>
 </template>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+hr {
+  width: 80%;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -54,12 +73,13 @@
 
 #nav {
   padding-top: 10px;
-  padding-bottom: 20px
+  padding-bottom: 20px;
 }
 
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+  text-decoration: none;
 }
 
 #nav a.router-link-exact-active {
@@ -98,7 +118,7 @@
   align-items: center;
   height: 50px;
   width: 100%;
-  background-color: gray;
+  background-image: url("/Blu2.png");
   border-radius: 100px;
 }
 
@@ -110,6 +130,7 @@
   width: 200px;
 }
 
+
 .title h1 {
   font-size: 2.25em;
   padding: 0px;
@@ -117,24 +138,79 @@
   margin: 0px;
 }
 
+.footer-container {
+  background-image: url("/Blu2.png");
+  background-blend-mode: overlay;
+  background-size:cover;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0px;
+  margin-bottom: 0px;
+  margin-top: auto;
+  overflow: hidden;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255,.5);
+  border-radius: 50px;
+  height: 75px;
+  width: 250px;
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
+  hr {
+    width: 0%;
+  }
+
   .header {
     margin: 30px;
     padding: 40px;
+  }
+
+  #home {
+    margin-top: 5px;
+  }
+
+  #small {
+    margin-top: 130px;
+    margin-bottom: 130px;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100px;
+    background-image: url("/Blu2.png"), linear-gradient(rgba(250,250,250,.1),rgba(250,250,250,0.1));
+    background-blend-mode: overlay;
+    padding-right: 0px;
+    border-radius: 100px;
+  }
+
+  #small h1 {
+    font-size: 3em;
+    padding-top:0px;
+    text-shadow: 0 0 3px #FFFDDD;
   }
 
   #nav {
     padding: 0px;
   }
 
-  .logo {
-    width: 400px;
+  #small #nav a {
+    font-size: 1.5em;
+    text-shadow: 0 0 3px #FFFDDD;
   }
 
-  #small h1 {
-    font-size: 3em;
-    padding-top:0px;
+  #small #nav a.router-link-exact-active {
+    text-shadow: 0 0 5px #000000;
+  }
+
+  .logo {
+    width: 400px;
   }
 
   .logo-container {
@@ -151,18 +227,6 @@
     width: 80%;
   }
 
-  #home {
-    margin-top: 5px;
-  }
-
-  #small {
-    margin-top: 100px;
-    margin-bottom: 100px;
-    flex-direction: row;
-    height: 100px;
-    background-color: gray;
-    border-radius: 100px;
-  }
 }
 
 </style>
