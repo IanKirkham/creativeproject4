@@ -29,6 +29,8 @@ const postSchema = new mongoose.Schema({
   likes: Number,
   favorite: Boolean,
   date_posted: String,
+  author: String,
+  author_id: Number,
 });
 
 const User = user_db.model('User', userSchema);
@@ -75,4 +77,3 @@ app.delete('/api/', async (req, res) => {
 });
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
-
