@@ -184,7 +184,7 @@ hr {
     flex-direction: row;
     justify-content: space-around;
     height: 100px;
-    background-image: url("/Blu2.png"), linear-gradient(rgba(250,250,250,.1),rgba(250,250,250,0.1));
+    background-image: url("/Blu2.png"), radial-gradient(rgba(255,255,255,.6) 0%,rgba(255,255,255,0) 90%);
     background-blend-mode: overlay;
     padding-right: 0px;
     border-radius: 100px;
@@ -198,6 +198,10 @@ hr {
 
   #nav {
     padding: 0px;
+  }
+
+  #home #nav a {
+    font-size: 1.5em;
   }
 
   #small #nav a {
