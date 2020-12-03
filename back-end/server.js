@@ -63,7 +63,7 @@ app.post('/api/login', async (req, res) => {
     }
 
     res.send({
-      message: "Success! Redirecting..."
+      user: user
     });
   } catch (error) {
     console.log(error);

@@ -6,27 +6,33 @@
       <div class="main-icon">
         <img src="/The_Mountain.png">
       </div>
-      <div class="info">
-        <h1>Member Login</h1>
-        <div v-if="error">
-          <p id="error">{{error}}</p>
-        </div>
-        <form name="login" class="form">
-          <div class="input-icons"> 
-            <i class="fa fa-user icon"></i> 
-            <input v-model="username" class="input-field" type="text" placeholder="Username"> 
-          </div>  
-          <div class="input-icons"> 
-            <i class="fa fa-key icon"></i> 
-            <input v-model="password" class="input-field" type="password" placeholder="Password"> 
+      <div v-if="isAuthenticated">
+        <h2>You are signed in as: {{signedInUser}}</h2>
+        <button id="signout-btn" @click="logoutUser()">Log Out</button>
+      </div>
+      <div v-else>
+        <div class="info">
+          <h1>Member Login</h1>
+          <div v-if="error">
+            <p id="error">{{error}}</p>
           </div>
-        </form>
-        <p>Forgot <a class="forgot" href="#">Username / Password?</a></p>
-        <div class="buttons">
-          <button id="register-btn" @click="registerUser()">Register</button>
-          <button id="login-btn" @click="loginUser()">Log In</button>
+          <form name="login" class="form">
+            <div class="input-icons"> 
+              <i class="fa fa-user icon"></i> 
+              <input v-model="username" class="input-field" type="text" placeholder="Username"> 
+            </div>  
+            <div class="input-icons"> 
+              <i class="fa fa-key icon"></i> 
+              <input v-model="password" class="input-field" type="password" placeholder="Password"> 
+            </div>
+          </form>
+          <p>Forgot <a class="forgot" href="#">Username / Password?</a></p>
+          <div class="buttons">
+            <button id="register-btn" @click="registerUser()">Register</button>
+            <button id="login-btn" @click="loginUser()">Log In</button>
+          </div>
+          <h5>New user? Click 'Register'</h5>
         </div>
-        <h5>New user? Click 'Register'</h5>
       </div>
     </div>
   </div>
@@ -44,13 +50,22 @@ export default {
       error: "",
     };
   },
+  computed: {
+    isAuthenticated() {
+      return this.$root.$data.user != undefined;
+    },
+    signedInUser() {
+      return this.$root.$data.user;
+    }
+  },
   methods: {
     async loginUser() {
       try {
-        await axios.post("/api/login", {
+        let response = await axios.post("/api/login", {
           username: this.username,
           password: this.password,
         });
+        this.$root.$data.user = response.data.user.username;
         this.$router.push('/');
       } catch (error) {
         this.error = error.response.data.message;
@@ -59,15 +74,19 @@ export default {
     async registerUser() {
       this.error = '';
       try {
-        await axios.post("/api/register", {
+        let response = await axios.post("/api/register", {
           username: this.username,
           password: this.password,
         });
+        this.$root.$data.user = response.data.user.username;
         this.$router.push('/');
       } catch (error) {
         this.error = error.response.data.message;
       }
-    }
+    },
+    logoutUser() {
+      this.$root.$data.user = null;
+    },
   },
 };
 </script>
@@ -84,7 +103,7 @@ export default {
 
 .login-container {
   height: 70%;
-  background-color: #FFF;
+  background-color: white;
   width: 80%;
   border-radius: 1em;
   display: flex;
@@ -92,6 +111,7 @@ export default {
   align-items: center;
   justify-content: center;
   box-shadow: 3px 6px 5px rgba(0, 0, 0, 0.5);
+  margin-bottom: 75px;
   position: relative;
 }
 
@@ -139,6 +159,11 @@ export default {
 .main-icon img {
   width: 100%;
   height: auto;
+  transition: transform .2s;
+}
+
+.main-icon img:hover {
+  transform: scale(1.1);
 }
 
 .form {
@@ -208,6 +233,33 @@ p {
   border-radius: 0.3em;
   padding: 0.7em;
   margin: 0.5em;
+}
+
+#signout-btn {
+  background-color: #c73636;
+  color: #FFF;
+  height: 2.5em;
+  width: 6em;
+  font-size: 1em;
+  border-style: none;
+  border-radius: 0.5em;
+  margin: 0.5em;
+}
+
+#signout-btn:hover {
+  background-color: #FFF;
+  color: #c73636;
+  border: 2px solid #c73636;
+  cursor: pointer;
+}
+
+#signout-btn:focus {
+  outline: none;
+}
+
+#signout-btn:active {
+  outline: none;
+  background-color: #E6E6E6;
 }
 
 #register-btn {
