@@ -47,7 +47,7 @@ export default {
     return {
       username: "",
       password: "",
-      error: "",
+      error: this.$root.$data.unauthorized,
     };
   },
   computed: {

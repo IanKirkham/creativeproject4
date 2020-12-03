@@ -1,11 +1,18 @@
 <template>
   <div class="user">
-    <h1>This is our user page</h1>
+
   </div>
 </template>
 
 <script>
+//import axios from "axios";
+
+export default {
+  name: "User",
+
+};
 </script>
 
 <style scoped>
+
 </style>

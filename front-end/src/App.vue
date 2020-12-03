@@ -15,7 +15,8 @@
       </div>
       <div id="nav">
         <router-link to="/">Home</router-link> |
-        <router-link to="/user">Profile</router-link> |
+        <router-link v-if="isAuthenticated" to="/user">Profile</router-link>
+        <router-link v-else to="/login">Profile</router-link> |
         <router-link to="/login">Login</router-link> |
         <router-link to="/catagories">Categories</router-link> |
         <router-link to="/post">Post</router-link>
@@ -52,6 +53,17 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "App",
+  computed: {
+    isAuthenticated() {
+      return this.$root.$data.user != undefined;
+    },
+  },
+};
+</script>
 
 <style>
 * {
