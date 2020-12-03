@@ -17,7 +17,7 @@
         <router-link to="/">Home</router-link> |
         <router-link to="/user">User</router-link> |
         <router-link to="/login">Login</router-link> |
-        <router-link to="/catagories">Catagories</router-link> |
+        <router-link to="/catagories">Categories</router-link> |
         <router-link to="/post">Post</router-link>
       </div>
       <br/>
@@ -28,7 +28,7 @@
         <router-link to="/">Home</router-link> |
         <router-link to="/user">User</router-link> |
         <router-link to="/login">Login</router-link> |
-        <router-link to="/catagories">Catagories</router-link> |
+        <router-link to="/catagories">Categories</router-link> |
         <router-link to="/post">Post</router-link>
       </div>
       <router-link to="/">
@@ -70,6 +70,7 @@ hr {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #fefefe;
 }
 
 #nav {
@@ -119,7 +120,8 @@ hr {
   align-items: center;
   height: 50px;
   width: 100%;
-  background-image: url("/Blu2.png");
+  background-image: url("/Blu2.png"), radial-gradient(rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 70%);
+  background-blend-mode: overlay;
   border-radius: 100px;
 }
 
@@ -194,7 +196,7 @@ hr {
   #small h1 {
     font-size: 3em;
     padding-top:0px;
-    text-shadow: 0 0 3px #FFFDDD;
+    text-shadow: 0 0 16px #b19cd9;
   }
 
   #nav {
@@ -207,7 +209,7 @@ hr {
 
   #small #nav a {
     font-size: 1.5em;
-    text-shadow: 0 0 3px #FFFDDD;
+    text-shadow: 0 0 6px #b19cd9;
   }
 
   #small #nav a.router-link-exact-active {
