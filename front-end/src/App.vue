@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <div class="header" id="home" v-if="this.$router.currentRoute.name == 'Home'">
       <div class="logo-container">
         <div class="logo-bar">
@@ -22,7 +23,8 @@
       </div>
       <br/>
     </div>
-    <div class="header" id="small" v-if="this.$router.currentRoute.name !== 'Home' 
+
+    <div class="header" id="small" v-if="this.$router.currentRoute.name !== 'Home'
         && this.$router.currentRoute.name !== 'Login'">
       <div id="nav">
         <router-link to="/">Home</router-link> |
@@ -42,7 +44,9 @@
       <br/>
       <hr/>
     </div>
+
     <router-view/>
+
     <div class="footer-container">
       <div class="footer">
         <a href="https://github.com/IanKirkham/creativeproject4"><i class="fab fa-github"></i> Visit our Github Page!</a>
@@ -50,6 +54,7 @@
         <p><em>Get thee into the Mountain</em></p>
       </div>
     </div>
+
   </div>
 </template>
 
