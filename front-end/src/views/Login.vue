@@ -1,6 +1,8 @@
 <template>
   <div class="login">
     <div class="login-container">
+      <router-link to="/" class="close-btn"><i class="fas fa-times"></i></router-link>
+      <div class="close-text">Home</div>
       <div class="main-icon">
         <img src="/The_Mountain.png">
       </div>
@@ -28,6 +30,9 @@
 </template>
 
 <script>
+
+
+
 </script>
 
 <style scoped>
@@ -50,6 +55,43 @@
   align-items: center;
   justify-content: center;
   box-shadow: 3px 6px 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  background-color: transparent;
+  color: #f54242;
+  border: none;
+  font-size: 3em;
+  cursor: pointer;
+}
+
+.close-text {
+  color: #c73636;
+  font-weight: bold;
+  font-size: 1.3em;
+  position: absolute;
+  top: 10%;
+  right: 1.7%;
+  opacity: 0;
+}
+
+.close-btn:hover{
+  color: #c73636;
+}
+
+.close-btn:hover + .close-text {
+  opacity: 1;
+}
+
+.close-btn:active + .close-text {
+  color: #912a2a;
+}
+.close-btn:focus {
+  outline: none;
 }
 
 .main-icon {
@@ -115,6 +157,10 @@ p {
   text-decoration: none;
   font-weight: bold;
   color: #2C3E50;
+}
+
+.forgot:hover {
+  color: #aaaaaa;
 }
 
 .buttons {
