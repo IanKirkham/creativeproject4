@@ -22,7 +22,8 @@
       </div>
       <br/>
     </div>
-    <div class="header" id="small" v-if="this.$router.currentRoute.name !== 'Home'">
+    <div class="header" id="small" v-if="this.$router.currentRoute.name !== 'Home' 
+        && this.$router.currentRoute.name !== 'Login'">
       <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/user">Profile</router-link> |
@@ -44,7 +45,7 @@
     <router-view/>
     <div class="footer-container">
       <div class="footer">
-        <a href="https://github.com/IanKirkham/creativeproject4">Visit our Github Page!</a>
+        <a href="https://github.com/IanKirkham/creativeproject4"><i class="fab fa-github"></i> Visit our Github Page!</a>
         <p>Ian Kirkham and Zach Payne</p>
         <p><em>Get thee into the Mountain</em></p>
       </div>
@@ -148,7 +149,9 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 0px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   margin-bottom: 0px;
   margin-top: auto;
   overflow: hidden;
