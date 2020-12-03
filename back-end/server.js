@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
   username: String,
   password: String,
   avatar: String,
+  posts: Array,
+  favorites: Array,
+  date_joined: String,
 });
 
 const postSchema = new mongoose.Schema({
@@ -91,11 +94,15 @@ app.post('/api/register', async (req, res) => {
         message: "Username already exists"
       });
     }
-
+    let today = new Date();
+    const date = today.getMonth()+1 + "/" + today.getDate() + "/" + today.getFullYear();
     const user = new User({
       username: req.body.username,
       password: req.body.password,
-      avatar: defaultAvatar, 
+      avatar: defaultAvatar,
+      posts: [],
+      favorites: [],
+      date_joined: date,
     });
     await user.save();
     res.send({

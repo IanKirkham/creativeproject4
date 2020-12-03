@@ -3,20 +3,20 @@
     <div class="content">
       <div class="info-container">
         <div class="img-container">
-          <img :src="user.avatar">
+          <img v-if="user" :src="user.avatar">
         </div>
-        <div class="info">
+        <div v-if="user" class="info">
           <h2>{{user.username}}</h2>
-          <p>Name?</p>
-          <p>Number of posts?</p>
-          <p>Date joined?</p>
+          <p>Member since: {{user.date_joined}}</p>
+          <p>My Posts: {{numberOfPosts}}</p>
+          <p>My Favorite Posts: {{numberOfFavorites}}</p>
         </div>
       </div>
       <div class="divider"></div>
       <div class="posts">
         <div class="tab">
-          <button class="sectn tab1">Favorite Posts</button>
-          <button class="sectn tab2">My Posts</button>
+          <button id="fav-btn" @click="showFavorites()" v-bind:class="{active: isFavActive, sectn: true, tab1: true}">Favorite Posts</button>
+          <button id="post-btn" @click="showPosts()" v-bind:class="{active: isPostActive, sectn: true, tab1: true}">My Posts</button>
         </div>
         <div class="post-list">
           <p>Put favorited posts here?</p>
@@ -39,11 +39,19 @@ export default {
     return {
       error: "",
       user: null,
+      isFavActive: true,
+      isPostActive: false,
     };
   },
   computed: {
     isError() {
       return this.error == undefined;
+    },
+    numberOfPosts() {
+      return this.user.posts.length;
+    },
+    numberOfFavorites() {
+      return this.user.favorites.length;
     },
   },
   created() {
@@ -57,6 +65,20 @@ export default {
       } catch (error) {
         this.error = error.response.data.message;
       }
+    },
+    async showFavorites() {
+      if (this.isFavActive) {
+        return;
+      }
+      this.isFavActive = true;
+      this.isPostActive = false;
+    },
+    async showPosts() {
+      if (this.isPostActive) {
+        return;
+      }
+      this.isFavActive = false;
+      this.isPostActive = true;
     },
   },
 };
@@ -85,9 +107,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60%;
   width: 20%;
-  margin-top: 2em;
 }
 
 .img-container {
@@ -96,7 +116,6 @@ export default {
   height: auto;
   flex-direction: column;
   margin-bottom: 1em;
-  margin-top: 1em;
 }
 
 .img-container img {
@@ -109,6 +128,7 @@ export default {
 .info {
   background-color: white;
   width: 100%;
+  border-radius: 0.2em;
 }
 
 .divider {
@@ -134,9 +154,18 @@ export default {
   border-radius: 0.2em 0.2em 0 0;
 }
 
-.tab1:focus, .tab2:focus {
+.sectn:active {
+  outline: none;
+}
+
+.sectn:hover {
+  cursor: pointer;
+}
+
+.active {
   background-color: white;
   outline: none;
+  cursor: default !important;
 }
 
 .post-list {
