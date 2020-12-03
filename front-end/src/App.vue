@@ -15,7 +15,7 @@
       </div>
       <div id="nav">
         <router-link to="/">Home</router-link> |
-        <router-link to="/user">User</router-link> |
+        <router-link to="/user">Profile</router-link> |
         <router-link to="/login">Login</router-link> |
         <router-link to="/catagories">Categories</router-link> |
         <router-link to="/post">Post</router-link>
@@ -25,7 +25,7 @@
     <div class="header" id="small" v-if="this.$router.currentRoute.name !== 'Home'">
       <div id="nav">
         <router-link to="/">Home</router-link> |
-        <router-link to="/user">User</router-link> |
+        <router-link to="/user">Profile</router-link> |
         <router-link to="/login">Login</router-link> |
         <router-link to="/catagories">Categories</router-link> |
         <router-link to="/post">Post</router-link>
@@ -84,7 +84,7 @@ hr {
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #0066cc;
 }
 
 .header {
@@ -163,6 +163,7 @@ hr {
   border-radius: 50px;
   height: 75px;
   width: 250px;
+  box-shadow: 0 0 10px rgba(255,255,255,1);
 }
 
 /* Desktop Styles */
@@ -186,7 +187,7 @@ hr {
     flex-direction: row;
     justify-content: space-around;
     height: 100px;
-    background-image: url("/Blu2.png"), radial-gradient(rgba(255,255,255,.6) 0%,rgba(255,255,255,0) 90%);
+    background-image: url("/Blu2.png"), radial-gradient(rgba(255,255,255,.7) 0%,rgba(255,255,255,0) 100%);
     background-blend-mode: overlay;
     padding-right: 0px;
     border-radius: 100px;
@@ -212,7 +213,7 @@ hr {
   }
 
   #small #nav a.router-link-exact-active {
-    text-shadow: 0 0 5px #000000;
+    text-shadow: 0 0 10px #eeeeee;
   }
 
   .logo {
