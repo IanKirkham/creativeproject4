@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const argon2 = require("argon2");
 
 const app = express();
 app.use(bodyParser.json());
@@ -36,44 +37,72 @@ const postSchema = new mongoose.Schema({
 const User = user_db.model('User', userSchema);
 const Post = post_db.model('Post', postSchema);
 
-// Create
-app.post('/api/', async (req, res) => {
+// Login User
+app.post('/api/login', async (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).send({
+      message: "Username and Password are required"
+    });
+  }
+
   try {
-    res.send("Create Placeholder");
+    let user = await User.findOne({
+      username: req.body.username
+    });
+
+    if (!user) {
+      return res.status(403).send({
+        message: "Invalid Credentials"
+      });
+    }
+
+    if (user.password != req.body.password) {
+      return res.status(403).send({
+        message: "Invalid Credentials"
+      });
+    }
+
+    res.send({
+      message: "Success! Redirecting..."
+    });
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
 });
 
-// Read
-app.get('/api/', async (req, res) => {
+// Register User
+app.post('/api/register', async (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).send({
+      message: "Username and Password are required"
+    });
+  }
+
   try {
-    res.send("Read Placeholder");
+    const existingUser = await User.findOne({
+      username: req.body.username
+    });
+    if (existingUser) {
+      return res.status(403).send({
+        message: "Username already exists"
+      });
+    }
+
+    const user = new User({
+      username: req.body.username,
+      password: req.body.password
+    });
+    await user.save();
+    res.send({
+      user: user
+    });
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
 });
 
-// Update
-app.put('/api/', async (req, res) => {
-  try {
-    res.send("Update Placeholder");
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
 
-// Delete
-app.delete('/api/', async (req, res) => {
-  try {
-    res.send("Delete Placeholder");
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));

@@ -8,20 +8,23 @@
       </div>
       <div class="info">
         <h1>Member Login</h1>
+        <div v-if="error">
+          <p id="error">{{error}}</p>
+        </div>
         <form name="login" class="form">
           <div class="input-icons"> 
             <i class="fa fa-user icon"></i> 
-            <input class="input-field" type="text" placeholder="Username"> 
+            <input v-model="username" class="input-field" type="text" placeholder="Username"> 
           </div>  
           <div class="input-icons"> 
             <i class="fa fa-key icon"></i> 
-            <input size="25" class="input-field" type="password" placeholder="Password"> 
+            <input v-model="password" class="input-field" type="password" placeholder="Password"> 
           </div>
         </form>
         <p>Forgot <a class="forgot" href="#">Username / Password?</a></p>
         <div class="buttons">
-          <button id="register-btn">Register</button>
-          <button id="login-btn">Log In</button>
+          <button id="register-btn" @click="registerUser()">Register</button>
+          <button id="login-btn" @click="loginUser()">Log In</button>
         </div>
         <h5>New user? Click 'Register'</h5>
       </div>
@@ -30,9 +33,43 @@
 </template>
 
 <script>
+import axios from "axios";
 
-
-
+export default {
+  name: "Login",
+  data() {
+    return {
+      username: "",
+      password: "",
+      error: "",
+    };
+  },
+  methods: {
+    async loginUser() {
+      try {
+        await axios.post("/api/login", {
+          username: this.username,
+          password: this.password,
+        });
+        this.$router.push('/');
+      } catch (error) {
+        this.error = error.response.data.message;
+      }
+    },
+    async registerUser() {
+      this.error = '';
+      try {
+        await axios.post("/api/register", {
+          username: this.username,
+          password: this.password,
+        });
+        this.$router.push('/');
+      } catch (error) {
+        this.error = error.response.data.message;
+      }
+    }
+  },
+};
 </script>
 
 <style scoped>
@@ -106,7 +143,6 @@
 
 .form {
   max-width:450px;
-  margin:auto;
 }
 
 .info {
@@ -144,10 +180,6 @@
   outline: none;
 }
 
-h1 {
-  margin-bottom: 0.5em;
-}
-
 p {
   font-size: 0.8em;
   margin: 0.5em;
@@ -167,6 +199,15 @@ p {
   display: flex;
   justify-content: center;
   margin-bottom: 0.3em;
+}
+
+#error {
+  background-color: #c73636;
+  color: #FFF;
+  border-style: none;
+  border-radius: 0.3em;
+  padding: 0.7em;
+  margin: 0.5em;
 }
 
 #register-btn {
