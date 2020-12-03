@@ -22,7 +22,8 @@
       </div>
       <br/>
     </div>
-    <div class="header" id="small" v-if="this.$router.currentRoute.name !== 'Home'">
+    <div class="header" id="small" v-if="this.$router.currentRoute.name !== 'Home' 
+        && this.$router.currentRoute.name !== 'Login'">
       <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/user">User</router-link> |

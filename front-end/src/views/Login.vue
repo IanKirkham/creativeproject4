@@ -1,6 +1,29 @@
 <template>
   <div class="login">
-    <h1>This is our login page</h1>
+    <div class="login-container">
+      <div class="main-icon">
+        <img src="/The_Mountain.png">
+      </div>
+      <div class="info">
+        <h1>Member Login</h1>
+        <form name="login" class="form">
+          <div class="input-icons"> 
+            <i class="fa fa-user icon"></i> 
+            <input class="input-field" type="text" placeholder="Username"> 
+          </div>  
+          <div class="input-icons"> 
+            <i class="fa fa-key icon"></i> 
+            <input size="25" class="input-field" type="password" placeholder="Password"> 
+          </div>
+        </form>
+        <p>Forgot <a class="forgot" href="#">Username / Password?</a></p>
+        <div class="buttons">
+          <button id="register-btn">Register</button>
+          <button id="login-btn">Log In</button>
+        </div>
+        <h5>New user? Click 'Register'</h5>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -8,4 +31,185 @@
 </script>
 
 <style scoped>
+
+.login {
+  background-image: url("/Blu.png");
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  height: 70%;
+  background-color: #FFF;
+  width: 80%;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 6px 5px rgba(0, 0, 0, 0.5);
+}
+
+.main-icon {
+  width: 10em;
+  height: auto;
+}
+
+.main-icon img {
+  width: 100%;
+  height: auto;
+}
+
+.form {
+  max-width:450px;
+  margin:auto;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  margin: 2em;
+}
+  
+.input-icons { 
+    width: 100%; 
+    margin-bottom: 10px; 
+}
+
+.input-icons i { 
+    position: absolute; 
+} 
+  
+.icon { 
+    padding: 10px; 
+    color: #32143A; 
+    min-width: 50px; 
+    text-align: center; 
+} 
+  
+.input-field { 
+    width: 100%; 
+    padding: 10px; 
+    padding-left: 40px;
+    background-color: #E6E6E6;
+    border-style: none;
+    border-radius: 2em;
+}
+
+.input-field:focus {
+  outline: none;
+}
+
+h1 {
+  margin-bottom: 0.5em;
+}
+
+p {
+  font-size: 0.8em;
+  margin: 0.5em;
+}
+
+.forgot {
+  text-decoration: none;
+  font-weight: bold;
+  color: #2C3E50;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.3em;
+}
+
+#register-btn {
+  background-color: #587fff;
+  color: #FFF;
+  height: 2.5em;
+  width: 6em;
+  font-size: 1em;
+  border-style: none;
+  border-radius: 0.5em;
+  margin: 0.5em;
+}
+
+#register-btn:hover {
+  background-color: #FFF;
+  color: #587fff;
+  border: 2px solid #587fff;
+  cursor: pointer;
+}
+
+#register-btn:focus {
+  outline: none;
+}
+
+#register-btn:active {
+  outline: none;
+  background-color: #E6E6E6;
+}
+
+#login-btn {
+  background-color: #827AF7;
+  color: #FFF;
+  height: 2.5em;
+  width: 6em;
+  font-size: 1em;
+  border-style: none;
+  border-radius: 0.5em;
+  margin: 0.5em;
+}
+
+#login-btn:hover {
+  background-color: #FFF;
+  color: #827AF7;
+  border: 2px solid #827AF7;
+  cursor: pointer;
+}
+
+#login-btn:focus {
+  outline: none;
+}
+
+#login-btn:active {
+  outline: none;
+  background-color: #E6E6E6;
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .main-icon {
+    width: 20em;
+  }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .login-container {
+    flex-direction: row;
+    height: 65%;
+    width: 50%;
+  }
+
+  h1 {
+    margin-bottom: 1em;
+  } 
+
+  p {
+    margin-top: 0em;
+  }
+
+  .main-icon {
+    width: 25em;
+    margin: 3em;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    margin: 3em;
+  }
+}
+
 </style>
