@@ -30,7 +30,7 @@
           </div>
         </div>
         <div v-else class="empty">
-          <p> No posts to show.</p>
+          <p> No posts to show. - TO BE COMPLETED LATER </p>
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@ export default {
       this.isFavActive = true;
       this.isPostActive = false;
 
-      
+
 
     },
     async showPosts() {
@@ -161,7 +161,7 @@ export default {
 }
 
 .divider {
-  border-bottom: 1px solid #666666;  
+  border-bottom: 1px solid #666666;
   width: 18em;
 }
 
@@ -252,7 +252,7 @@ export default {
   }
 
   .divider {
-     border-left:1px solid #666666;  
+     border-left:1px solid #666666;
      height: 20em;
      border-bottom: 0;
      width: 0;
