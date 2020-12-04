@@ -18,12 +18,19 @@
           <button id="fav-btn" @click="showFavorites()" v-bind:class="{active: isFavActive, sectn: true, tab1: true}">Favorite Posts</button>
           <button id="post-btn" @click="showPosts()" v-bind:class="{active: isPostActive, sectn: true, tab1: true}">My Posts</button>
         </div>
-        <div class="post-list">
-          <p>Put favorited posts here?</p>
-          <p>and here</p>
-          <p>and so forth</p>
-          <p>Note: this is a really rough mockup, the design will change once we have Post objects and what not</p>
-          <p>Also, might not hurt to add more data to User objects, like name and stuff, just so we have more stuff to put here</p>
+        <div v-if="postsExist">
+          <div class="posts" v-for="post in post_list" :key="post._id">
+            <br/>
+            <router-link :to="{ name: 'Post', params: { id: post._id }}">
+              <h2>{{post.title}}</h2>
+            </router-link>
+            <h4>{{post.author}} - {{post.date_posted}}</h4>
+            <br/>
+            <hr/>
+          </div>
+        </div>
+        <div v-else class="empty">
+          <p> No posts to show.</p>
         </div>
       </div>
     </div>
@@ -39,11 +46,15 @@ export default {
     return {
       error: "",
       user: null,
-      isFavActive: true,
+      isFavActive: false,
       isPostActive: false,
+      post_list: [],
     };
   },
   computed: {
+    postsExist() {
+      return this.post_list.length > 0;
+    },
     isError() {
       return this.error == undefined;
     },
@@ -56,6 +67,7 @@ export default {
   },
   created() {
     this.getUser();
+    this.showFavorites();
   },
   methods: {
     async getUser() {
@@ -72,6 +84,9 @@ export default {
       }
       this.isFavActive = true;
       this.isPostActive = false;
+
+      
+
     },
     async showPosts() {
       if (this.isPostActive) {
@@ -79,6 +94,9 @@ export default {
       }
       this.isFavActive = false;
       this.isPostActive = true;
+
+
+
     },
   },
 };
@@ -180,7 +198,7 @@ export default {
   cursor: default !important;
 }
 
-.post-list {
+.empty {
   background-color: white;
   border-radius: 0 0.2em 0.2em 0.2em;
   box-shadow: 3px 6px 5px rgba(0, 0, 0, 0.5);
@@ -190,10 +208,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-bottom: 2em;
-}
-
-.post-list p {
-  margin: 1em;
+  height: 20em;
 }
 
 /* Tablet */
