@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import User from '../views/User.vue'
 import Login from '../views/Login.vue'
 import Catagories from '../views/Catagories.vue'
+import Post from '../views/Post.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/catagories',
     name: 'Catagories',
     component: Catagories
+  },
+  {
+    path: '/post',
+    name: 'Post',
+    component: Post
   }
 ]
 

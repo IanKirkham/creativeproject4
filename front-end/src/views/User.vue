@@ -143,8 +143,8 @@ export default {
 }
 
 .divider {
-     border-bottom: 1px solid #666666;  
-     width: 18em;
+  border-bottom: 1px solid #666666;  
+  width: 18em;
 }
 
 .posts {
