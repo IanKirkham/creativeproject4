@@ -5,6 +5,7 @@ import User from '../views/User.vue'
 import Login from '../views/Login.vue'
 import Catagories from '../views/Catagories.vue'
 import Post from '../views/Post.vue'
+import CreatePost from '../views/CreatePost.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/:id',
     name: 'Post',
     component: Post
+  },
+  {
+    path: '/create',
+    name: 'Create',
+    component: CreatePost
   }
 ]
 
