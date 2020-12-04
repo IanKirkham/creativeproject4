@@ -30,10 +30,12 @@ export default {
       title: "",
       body: "",
       user: null,
+      category: "",
     };
   },
   created() {
     this.getUser();
+    this.getCategory();
   },
   methods: {
     async getUser() {
@@ -52,14 +54,17 @@ export default {
           title: this.title,
           content: this.body,
           author: this.user.username,
-          category: this.$route.params.category,
+          category: this.category,
         });
         this.$router.push('/' + response.data.post._id);
       } catch (error) {
-        console.log(error);
         this.error = error.response.data.message;
       }
     },
+    getCategory() {
+      this.category = this.$route.params.category;
+      console.log(this.category);
+    }
   },
 };
 </script>
