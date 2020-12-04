@@ -1,9 +1,9 @@
 <template>
   <div class="page">
     <div class="category">
-      <div class="post" v-for="post in posts" :key="post.id">
+      <div class="post" v-for="post in posts" :key="post._id">
         <br/>
-         <router-link :to="'/post/' + post.id">
+         <router-link :to="'/post/' + post._id">
           <h2>{{post.title}}</h2>
         </router-link>
         <h4>{{post.author}} - {{post.date_posted}}</h4>
