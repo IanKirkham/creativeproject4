@@ -2,7 +2,7 @@
   <div class="page">
     <div class="category">
       <div class="post" v-for="post in posts" :key="post.id">
-        <br/>         
+        <br/>
          <router-link :to="'/post/' + post.id">
           <h2>{{post.title}}</h2>
         </router-link>
@@ -52,6 +52,10 @@ hr {
   justify-content: center;
   flex-direction: column;
   height: 100%;
+}
+
+.page {
+  margin-bottom: 100px;
 }
 
 
