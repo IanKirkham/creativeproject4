@@ -6,6 +6,7 @@
       <button id="religion-btn" @click="getPosts('religion')">Religion</button>
       <button id="life-btn" @click="getPosts('life')">Life</button>
       <button id="cooking-btn" @click="getPosts('cooking')">Cooking</button>
+      <button id="dummy-btn" @click="createPost()">Dummy</button>
     </div>
     <br/>
     <hr/>
@@ -38,6 +39,19 @@ export default {
         let response = await axios.get("/api/posts/"+argT)
         this.$root.$data.posts = response.data;
         return true;
+      } catch (error) {
+        this.error = error.response.data.message;
+      }
+    },
+    async createPost() {
+      this.error = '';
+      try {
+        await axios.post("/api/create", {
+          title: "Dummy Title",
+          content: "This is my dummy content",
+          author: "Zach",
+          author_id: "1",
+        });
       } catch (error) {
         this.error = error.response.data.message;
       }

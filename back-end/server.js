@@ -37,6 +37,7 @@ const postSchema = new mongoose.Schema({
   date_posted: String,
   author: String,
   author_id: Number,
+  category: String,
 });
 
 const User = user_db.model('User', userSchema);
@@ -145,4 +146,30 @@ app.get('/api/posts/:category', async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log('Server listening on port 3000!'));
+// Create Post
+app.post('/api/create', async (req, res) => {
+  try {
+    let today = new Date();
+    const date = today.getMonth()+1 + "/" + today.getDate() + "/" + today.getFullYear();
+    const post = new Post({
+      title: req.body.title,
+      content: req.body.content,
+      replies: [],
+      likes: 0,
+      favorite: false,
+      date_posted: date,
+      author: req.body.author,
+      author_id: req.body.author_id,
+      category: "cooking",
+    });
+    await post.save();
+    res.send({
+      post: post
+    });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+app.listen(3001, () => console.log('Server listening on port 3001!'));

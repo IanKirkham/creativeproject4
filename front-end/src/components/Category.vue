@@ -2,10 +2,13 @@
   <div class="page">
     <div class="category">
       <div class="post" v-for="post in posts" :key="post.id">
-        <hr/>
+        <br/>         
+         <router-link :to="'/post/' + post.id">
+          <h2>{{post.title}}</h2>
+        </router-link>
+        <h4>{{post.author}} - {{post.date_posted}}</h4>
         <br/>
-        <h2>{{post.title}}</h2>
-        <h4>{{post.author}}, {{post.date_posted}}</h4>
+        <hr/>
       </div>
     </div>
   </div>
@@ -28,3 +31,28 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+hr {
+  width: 100%;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  width: 200%;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+</style>
