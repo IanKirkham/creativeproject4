@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <div v-if="isError" class="error">{{error}}</div>
     <div class="post-container">
         <div class="post-content">
           <h1>Create Post</h1>
@@ -31,7 +32,13 @@ export default {
       body: "",
       user: null,
       category: "",
+      error: "",
     };
+  },
+  computed: {
+    isError() {
+      return this.error != "";
+    },
   },
   created() {
     this.getUser();
@@ -49,6 +56,13 @@ export default {
     async createPost() {
       this.error = '';
       try {
+
+        if (this.$root.$data.user == undefined) {
+          this.error = "Please log in to create posts";
+          return;
+        }
+        this.error = "";
+
         console.log(this.$route.params.category);
         let response = await axios.post("/api/create", {
           title: this.title,
@@ -70,6 +84,15 @@ export default {
 </script>
 
 <style scoped>
+  .error {
+    background-color: #c73636;
+    color: #FFF;
+    border-style: none;
+    border-radius: 0.3em;
+    padding: 0.7em;
+    margin: 0.5em;
+  }
+
   .title-container input {
     padding: 5px;
     width: 200px;
