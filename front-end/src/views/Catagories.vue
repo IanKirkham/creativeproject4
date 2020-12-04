@@ -37,7 +37,6 @@ export default {
     return {
       displayCategory: "Choose a Category",
       currentCategory: null
-
     }
   },
   computed: {

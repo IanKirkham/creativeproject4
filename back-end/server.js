@@ -36,7 +36,6 @@ const postSchema = new mongoose.Schema({
   favorite: Boolean,
   date_posted: String,
   author: String,
-  author_id: Number,
   category: String,
 });
 
@@ -169,8 +168,7 @@ app.post('/api/create', async (req, res) => {
       favorite: false,
       date_posted: date,
       author: req.body.author,
-      author_id: req.body.author_id,
-      category: "cooking",
+      category: req.body.category,
     });
     await post.save();
     res.send({
