@@ -198,20 +198,39 @@ app.put('/api/reply/:id', async (req, res) => {
   }
 });
 
-// Add post to users favorites
-app.put('/api/favorite', async (req, res) => {
+// // Add post to users favorites
+// app.put('/api/favorite', async (req, res) => {
+//   try {
+//     let user = await User.findOne({
+//       username: req.body.username,
+//     });
+//     await user.favorites.push(req.body.post);
+//     user.save();
+//     post.favorite = true;
+//     post.save();
+//   } catch (error) {
+//     console.log(error);
+//     res.sendStatus(500);
+//   }
+// });
+
+app.put('/api/update', async (req, res) => {
   try {
-    let user = await User.findOne({
-      username: req.body.username,
+    const user = new User({
+      username: req.body.user.username,
+      password: req.body.user.password,
+      avatar: req.body.user.avatar,
+      posts: req.body.user.posts,
+      favorites: req.body.user.favorites,
+      date_joined: req.body.user.date,
     });
-    await user.favorites.push(req.body.post);
+
     user.save();
-    post.favorite = true;
-    post.save();
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
 });
+
 
 app.listen(3001, () => console.log('Server listening on port 3001!'));

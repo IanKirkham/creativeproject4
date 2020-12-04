@@ -70,10 +70,21 @@ export default {
           author: this.user.username,
           category: this.category,
         });
+
+        this.user.posts.push(response.data.post._id);
+
+        await axios.put("/api/update" , {
+          user: this.user,
+        });
+
         this.$router.push('/' + response.data.post._id);
       } catch (error) {
         this.error = error.response.data.message;
+        return;
       }
+
+
+
     },
     getCategory() {
       this.category = this.$route.params.category;
