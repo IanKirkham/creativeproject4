@@ -85,12 +85,6 @@ export default {
       }
       this.isFavActive = true;
       this.isPostActive = false;
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 4ca2b02e89554c115e7bef12c812ab9d5e637973
     },
     async showPosts() {
       if (this.isPostActive) {
