@@ -185,7 +185,7 @@ app.post('/api/create', async (req, res) => {
 // Add Reply to a Post
 app.put('/api/reply/:id', async (req, res) => {
   try {
-    let post = await Post.find({ _id: req.params.id });
+    let post = await Post.findOne({ _id: req.params.id });
     let reply = {
       content: req.body.content,
       author: req.body.author,
