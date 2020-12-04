@@ -12,7 +12,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'PostList',
   props: {
@@ -27,15 +26,6 @@ export default {
     };
   },
   methods: {
-    async getPosts() {
-      try {
-        let response = await axios.get("/api/posts/")
-        this.posts = response.data;
-        return true;
-      } catch (error) {
-        this.error = error.response.data.message;
-      }
-    },
     like(post) {
       post.likes += 1;
       // FIXME TIE TO MEME
