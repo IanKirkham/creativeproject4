@@ -28,13 +28,15 @@ export default {
     }
   },
   computed: {
-
+    posts() {
+      return this.$root.$data.posts;
+    }
   },
   methods: {
     async getPosts(argT) {
       try {
         let response = await axios.get("/api/posts/"+argT)
-        this.posts = response.data;
+        this.$root.$data.posts = response.data;
         return true;
       } catch (error) {
         this.error = error.response.data.message;
@@ -45,4 +47,25 @@ export default {
 </script>
 
 <style scoped>
+hr {
+  width: 60%;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 15%;
+}
+
+
+
 </style>

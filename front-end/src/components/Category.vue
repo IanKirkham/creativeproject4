@@ -22,18 +22,9 @@ export default {
   },
   data() {
     return {
-      likeChecked: false,
     };
   },
   methods: {
-    like(post) {
-      post.likes += 1;
-      // FIXME TIE TO MEME
-    },
-    favorite(post) {
-      this.$root.$data.favorites.push(post);
-      // FIXME TIE TO USER
-    }
   }
 }
 </script>
