@@ -1,5 +1,6 @@
 <template>
   <div v-if="post" class="post">
+    <div v-if="isError" class="error">{{error}}</div>
     <div class="post-container">
       <div class="main-post">
         <div v-if="user" class="post-info">  
@@ -52,9 +53,13 @@ export default {
       liked: false,
       addedName: "",
       addedComment: "",
+      error: "",
     };
   },
   computed: {
+    isError() {
+      return this.error != "";
+    },
     isFavorited() {
       return this.post.favorite;
     },
@@ -87,9 +92,13 @@ export default {
 
       try {
 
-        if (this.user == undefined) {
+        if (this.$root.$data.user == undefined) {
+          this.error = "Please log in to Like and Favorite posts";
           return;
         }
+        this.error = "";
+
+        
 
         let response = await axios.put("/api/favorite", {
           username: this.$root.$data.user,
@@ -103,6 +112,13 @@ export default {
       this.post.favorite = !this.post.favorite;
     },
     async toggleLike() {
+
+      if (this.$root.$data.user == undefined) {
+        this.error = "Please log in to Like and Favorite posts";
+        return;
+      }
+      this.error = "";
+
       if(this.liked) {
         this.post.likes -= 1;
       } else {
@@ -320,6 +336,15 @@ textarea {
 
 #comment-btn:focus {
   outline: none;
+}
+
+.error {
+  background-color: #c73636;
+  color: #FFF;
+  border-style: none;
+  border-radius: 0.3em;
+  padding: 0.7em;
+  margin: 0.5em;
 }
 
 </style>
