@@ -89,7 +89,6 @@ export default {
       }
     },
     async toggleFav() {
-
       try {
 
         if (this.$root.$data.user == undefined) {
@@ -98,18 +97,22 @@ export default {
         }
         this.error = "";
 
-        
-
-        let response = await axios.put("/api/favorite", {
-          username: this.$root.$data.user,
-          post: this.post._id,
-        });
+        let response = "";
+        if (this.post.favorite) {
+          response = await axios.put("api/favorite/delete", {
+            username: this.$root.$data.user,
+            post: this.post._id,
+          });
+        } else {
+          response = await axios.put("/api/favorite", {
+            username: this.$root.$data.user,
+            post: this.post._id,
+          });
+        }
         this.post = response.data;
       } catch (error) {
         console.log(error);
       }
-
-      this.post.favorite = !this.post.favorite;
     },
     async toggleLike() {
 

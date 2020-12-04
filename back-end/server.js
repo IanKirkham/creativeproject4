@@ -204,9 +204,30 @@ app.put('/api/favorite', async (req, res) => {
     let user = await User.findOne({
       username: req.body.username,
     });
+    let post = await Post.findOne({
+      _id: req.body.post,
+    });
     await user.favorites.push(req.body.post);
     user.save();
     post.favorite = true;
+    post.save();
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+// Remove post from users favorites
+app.put('/api/favorite/remove', async (req, res) => {
+  try {
+    let user = await User.findOne({
+      username: req.body.username,
+    });
+    console.log("here");
+    var filtered = user.favorites.filter(id => id != req.body.post);
+    user.favorites = filtered;
+    user.save();
+    post.favorite = false;
     post.save();
   } catch (error) {
     console.log(error);
