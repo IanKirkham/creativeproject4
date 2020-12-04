@@ -1,11 +1,14 @@
 <template>
   <div class="categories">
-    <h1>This is our categories page</h1>
+    <h1>{{currentCategory}}</h1>
     <br/>
     <div class="buttons">
       <button id="religion-btn" @click="getPosts('religion')">Religion</button>
+      <hr/>
       <button id="life-btn" @click="getPosts('life')">Life</button>
+      <hr/>
       <button id="cooking-btn" @click="getPosts('cooking')">Cooking</button>
+      <hr/>
       <button id="dummy-btn" @click="createPost()">Dummy</button>
     </div>
     <br/>
@@ -26,6 +29,7 @@ export default {
   },
   data() {
     return {
+      currentCategory: "Choose a Category",
     }
   },
   computed: {
@@ -38,10 +42,11 @@ export default {
       try {
         let response = await axios.get("/api/posts/"+argT)
         this.$root.$data.posts = response.data;
+        this.currentCategory = argT.toUpperCase();
         return true;
       } catch (error) {
         this.error = error.response.data.message;
-      }
+      }  
     },
     async createPost() {
       this.error = '';
@@ -61,6 +66,20 @@ export default {
 </script>
 
 <style scoped>
+
+button {
+  padding: 10px;
+  border: none;
+  background: none;
+  font-size: 1.5em;
+  border-radius: 30px;
+}
+
+button:hover {
+  color: rgba(0, 0, 0, 1);
+  box-shadow: 0 0 15px rgba(145, 92, 182, .4);
+}
+
 hr {
   width: 60%;
 }
@@ -77,7 +96,11 @@ hr {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 15%;
+  width: 40%;
+}
+
+.buttons hr {
+  width: 7%;
 }
 
 

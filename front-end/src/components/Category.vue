@@ -38,6 +38,10 @@ hr {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
 .post {
   display: flex;
   flex-direction: column;
