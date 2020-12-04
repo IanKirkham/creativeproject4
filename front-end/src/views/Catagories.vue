@@ -6,6 +6,7 @@
       <button id="religion-btn" @click="getPosts('religion')">Religion</button>
       <button id="life-btn" @click="getPosts('life')">Life</button>
       <button id="cooking-btn" @click="getPosts('cooking')">Cooking</button>
+      <button id="dummy-btn" @click="createPost()">Dummy</button>
     </div>
     <br/>
     <hr/>
@@ -28,14 +29,29 @@ export default {
     }
   },
   computed: {
-
+    posts() {
+      return this.$root.$data.posts;
+    }
   },
   methods: {
     async getPosts(argT) {
       try {
         let response = await axios.get("/api/posts/"+argT)
-        this.posts = response.data;
+        this.$root.$data.posts = response.data;
         return true;
+      } catch (error) {
+        this.error = error.response.data.message;
+      }
+    },
+    async createPost() {
+      this.error = '';
+      try {
+        await axios.post("/api/create", {
+          title: "Dummy Title",
+          content: "This is my dummy content",
+          author: "Zach",
+          author_id: "1",
+        });
       } catch (error) {
         this.error = error.response.data.message;
       }
@@ -45,4 +61,25 @@ export default {
 </script>
 
 <style scoped>
+hr {
+  width: 60%;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 15%;
+}
+
+
+
 </style>

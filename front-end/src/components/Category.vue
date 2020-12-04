@@ -1,11 +1,14 @@
 <template>
   <div class="page">
     <div class="category">
-      <div class="post" v-for="post in posts" :key="post.id">
-        <hr/>
+      <div class="post" v-for="post in posts" :key="post._id">
         <br/>
-        <h2>{{post.title}}</h2>
-        <h4>{{post.author}}, {{post.date_posted}}</h4>
+         <router-link :to="{ name: 'Post', params: { id: post._id }}">
+          <h2>{{post.title}}</h2>
+        </router-link>
+        <h4>{{post.author}} - {{post.date_posted}}</h4>
+        <br/>
+        <hr/>
       </div>
     </div>
   </div>
@@ -22,18 +25,38 @@ export default {
   },
   data() {
     return {
-      likeChecked: false,
     };
   },
   methods: {
-    like(post) {
-      post.likes += 1;
-      // FIXME TIE TO MEME
-    },
-    favorite(post) {
-      this.$root.$data.favorites.push(post);
-      // FIXME TIE TO USER
-    }
   }
 }
 </script>
+
+<style scoped>
+
+hr {
+  width: 100%;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  width: 200%;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.page {
+  margin-bottom: 100px;
+}
+
+
+</style>

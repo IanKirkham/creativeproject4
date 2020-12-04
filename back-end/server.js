@@ -37,6 +37,7 @@ const postSchema = new mongoose.Schema({
   date_posted: String,
   author: String,
   author_id: Number,
+  category: String,
 });
 
 const User = user_db.model('User', userSchema);
@@ -145,6 +146,42 @@ app.get('/api/posts/:category', async (req, res) => {
   }
 });
 
+// Get Post from ID
+app.get('/api/post/:id', async (req, res) => {
+  try {
+    let post = await Post.findOne({ _id: req.params.id});
+    res.send(post);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+// Create Post
+app.post('/api/create', async (req, res) => {
+  try {
+    let today = new Date();
+    const date = today.getMonth()+1 + "/" + today.getDate() + "/" + today.getFullYear();
+    const post = new Post({
+      title: req.body.title,
+      content: req.body.content,
+      replies: [],
+      likes: 0,
+      favorite: false,
+      date_posted: date,
+      author: req.body.author,
+      author_id: req.body.author_id,
+      category: "cooking",
+    });
+    await post.save();
+    res.send({
+      post: post
+    });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 // Add Reply to a Post
 app.put('/api/reply/:id', async (req, res) => {
   try {
@@ -157,8 +194,9 @@ app.put('/api/reply/:id', async (req, res) => {
     post.replies.push(reply);
     res.sendStatus(200);
   } catch (error) {
+    console.log(error);
     res.sendStatus(500);
   }
 });
 
-app.listen(3000, () => console.log('Server listening on port 3000!'));
+app.listen(3001, () => console.log('Server listening on port 3001!'));

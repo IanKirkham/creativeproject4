@@ -30,7 +30,7 @@ const routes = [
     component: Catagories
   },
   {
-    path: '/post',
+    path: '/post/:id',
     name: 'Post',
     component: Post
   }

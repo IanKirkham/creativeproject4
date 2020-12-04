@@ -47,28 +47,7 @@ export default {
   name: "Post",
   data() {
     return {
-      post: {
-          _id: "123",
-          title: "Post title here",
-          content: "here is where the content is going to go",
-          replies: [
-            {
-              content: "here is the reply content",
-              id: 123,
-              author: "joe"
-            }, 
-            {
-              content: "another reply",
-              id: 124,
-              author: "ian",
-            }
-          ],
-          likes: 12,
-          favorite: false,
-          date_posted: "12/03/2020",
-          author: "author_name",
-          author_id: 123123123,
-      },
+      post: null,
       user: null,
       liked: false,
       addedName: "",
@@ -84,22 +63,15 @@ export default {
     },
   },
   created() {
-    this.getPost();
+    this.getPost(this.$route.params.id);
   },
   methods: {
-    async getPost() {
+    async getPost(id) {
       try {
-        console.log("test");
-        //let response = await axios.get("/api/user/" + this.$root.$data.user);
-        //this.user = response.data.user;
-
-        this.user = {
-          avatar: "https://img.icons8.com/ios/100/000000/login-as-user.png",
-          username: "ian",
-        };
-
+        let post = await axios.get("api/post/" + id);
+        this.post = post;
       } catch (error) {
-        //this.error = error.response.data.message;
+        console.log(error);
       }
     },
     toggleFav() {
@@ -128,19 +100,6 @@ export default {
   },
 };
 </script>
-
-    async loginUser() {
-      try {
-        let response = await axios.post("/api/login", {
-          username: this.username,
-          password: this.password,
-        });
-        this.$root.$data.user = response.data.user.username;
-        this.$router.push('/');
-      } catch (error) {
-        this.error = error.response.data.message;
-      }
-    },
 
 <style scoped>
 
