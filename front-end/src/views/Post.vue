@@ -3,7 +3,7 @@
     <div v-if="isError" class="error">{{error}}</div>
     <div class="post-container">
       <div class="main-post">
-        <div v-if="user" class="post-info">  
+        <div v-if="user" class="post-info">
           <img :src="user.avatar">
           <p>Author: {{post.author}}</p>
           <p>Date Posted: {{post.date_posted}}</p>
@@ -88,31 +88,40 @@ export default {
         console.log(error);
       }
     },
+    // async toggleFav() {
+    //   try {
+    //
+    //     if (this.$root.$data.user == undefined) {
+    //       this.error = "Please log in to Like and Favorite posts";
+    //       return;
+    //     }
+    //     this.error = "";
+    //
+    //     let response = "";
+    //     if (this.post.favorite) {
+    //       response = await axios.put("api/favorite/delete", {
+    //         username: this.$root.$data.user,
+    //         post: this.post._id,
+    //       });
+    //     } else {
+    //       response = await axios.put("/api/favorite", {
+    //         username: this.$root.$data.user,
+    //         post: this.post._id,
+    //       });
+    //     }
+    //     this.post = response.data;
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
     async toggleFav() {
-      try {
-
-        if (this.$root.$data.user == undefined) {
-          this.error = "Please log in to Like and Favorite posts";
-          return;
-        }
-        this.error = "";
-
-        let response = "";
-        if (this.post.favorite) {
-          response = await axios.put("api/favorite/delete", {
-            username: this.$root.$data.user,
-            post: this.post._id,
-          });
-        } else {
-          response = await axios.put("/api/favorite", {
-            username: this.$root.$data.user,
-            post: this.post._id,
-          });
-        }
-        this.post = response.data;
-      } catch (error) {
-        console.log(error);
+      if (this.$root.$data.user == undefined) {
+        this.error = "Please log in to Like and Favorite posts";
+        return;
       }
+      this.error = "";
+
+      this.post.favorite = !this.post.favorite;
     },
     async toggleLike() {
 
@@ -194,7 +203,7 @@ img {
 }
 
 .divider {
-  border-right: 1px solid #666666;  
+  border-right: 1px solid #666666;
   height: 5em;
   margin: 1em;
 }

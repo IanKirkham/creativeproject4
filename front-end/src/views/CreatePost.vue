@@ -71,11 +71,11 @@ export default {
           category: this.category,
         });
 
-        this.user.posts.push(response.data.post._id);
-
-        await axios.put("/api/update" , {
-          user: this.user,
-        });
+        // this.user.posts.push(response.data.post._id);
+        //
+        // await axios.put("/api/update" , {
+        //   user: this.user,
+        // });
 
         this.$router.push('/' + response.data.post._id);
       } catch (error) {
