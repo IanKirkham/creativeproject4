@@ -1,6 +1,6 @@
 <template>
   <div class="categories">
-    <h1>{{currentCategory}}</h1>
+    <h1>{{displayCategory}}</h1>
     <br/>
     <div class="buttons">
       <button id="religion-btn" @click="getPosts('religion')">Religion</button>
@@ -11,6 +11,12 @@
       <hr/>
       <button id="dummy-btn" @click="createPost()">Dummy</button>
     </div>
+    <br/>
+    <hr/>
+    <br/>
+    <router-link :to="{ name: 'Create', params: { category: this.currentCategory }}">
+     <h3>Create Post</h3>
+    </router-link>
     <br/>
     <hr/>
     <br/>
@@ -29,7 +35,9 @@ export default {
   },
   data() {
     return {
-      currentCategory: "Choose a Category",
+      displayCategory: "Choose a Category",
+      currentCategory: null
+
     }
   },
   computed: {
@@ -42,11 +50,12 @@ export default {
       try {
         let response = await axios.get("/api/posts/"+argT)
         this.$root.$data.posts = response.data;
-        this.currentCategory = argT.toUpperCase();
+        this.currentCategory = argT;
+        this.displayCategory = argT.toUpperCase();
         return true;
       } catch (error) {
         this.error = error.response.data.message;
-      }  
+      }
     },
     async createPost() {
       this.error = '';
@@ -67,7 +76,7 @@ export default {
 
 <style scoped>
 
-button {
+button, h3 {
   padding: 10px;
   border: none;
   background: none;
@@ -75,13 +84,17 @@ button {
   border-radius: 30px;
 }
 
-button:hover {
+button:hover, h3:hover {
   color: rgba(0, 0, 0, 1);
   box-shadow: 0 0 15px rgba(145, 92, 182, .4);
 }
 
 hr {
   width: 60%;
+}
+
+a {
+  text-decoration: none;
 }
 
 .categories {
