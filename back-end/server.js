@@ -23,9 +23,12 @@ const userSchema = new mongoose.Schema({
   username: String,
   password: String,
   avatar: String,
+  posts: Array,
+  favorites: Array,
 });
 
 const postSchema = new mongoose.Schema({
+  title: String,
   content: String,
   replies: Array,
   likes: Number,
@@ -95,7 +98,7 @@ app.post('/api/register', async (req, res) => {
     const user = new User({
       username: req.body.username,
       password: req.body.password,
-      avatar: defaultAvatar, 
+      avatar: defaultAvatar,
     });
     await user.save();
     res.send({
@@ -123,6 +126,16 @@ app.get('/api/user/:username', async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+// Get Category Posts
+app.get('/api/posts/:category', async (req, res) => {
+  try {
+    let posts = await Post.find({ category: req.params.category });
+    res.send(posts);
+  } catch (error) {
     res.sendStatus(500);
   }
 });
