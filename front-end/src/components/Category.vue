@@ -1,10 +1,11 @@
 <template>
   <div class="page">
-    <div class="wrapper">
-      <div class="category">
-        <div class="post" v-for="post in posts" :key="post.id">
-
-        </div>
+    <div class="category">
+      <div class="post" v-for="post in posts" :key="post.id">
+        <hr/>
+        <br/>
+        <h2>{{post.title}}</h2>
+        <h4>{{post.author}}, {{post.date_posted}}</h4>
       </div>
     </div>
   </div>

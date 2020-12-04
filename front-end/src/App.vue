@@ -93,6 +93,7 @@ hr {
 #nav {
   padding-top: 10px;
   padding-bottom: 20px;
+  width: 100%;
 }
 
 #nav a {
@@ -107,7 +108,6 @@ hr {
 
 .header {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
@@ -150,6 +150,9 @@ hr {
   width: 200px;
 }
 
+.title {
+  width: 100%;
+}
 
 .title h1 {
   font-size: 2.25em;
@@ -210,6 +213,7 @@ hr {
     background-image: url("/Blu2.png"), radial-gradient(rgba(255,255,255,.7) 0%,rgba(255,255,255,0) 100%);
     background-blend-mode: overlay;
     padding-right: 0px;
+    padding-left: 0px;
     border-radius: 100px;
   }
 

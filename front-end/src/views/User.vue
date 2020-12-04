@@ -3,20 +3,20 @@
     <div class="content">
       <div class="info-container">
         <div class="img-container">
-          <img :src="user.avatar">
+          <img v-if="user" :src="user.avatar">
         </div>
-        <div class="info">
+        <div v-if="user" class="info">
           <h2>{{user.username}}</h2>
-          <p>Name?</p>
-          <p>Number of posts?</p>
-          <p>Date joined?</p>
+          <p>Member since: {{user.date_joined}}</p>
+          <p>My Posts: {{numberOfPosts}}</p>
+          <p>My Favorite Posts: {{numberOfFavorites}}</p>
         </div>
       </div>
       <div class="divider"></div>
       <div class="posts">
         <div class="tab">
-          <button class="sectn tab1">Favorite Posts</button>
-          <button class="sectn tab2">My Posts</button>
+          <button id="fav-btn" @click="showFavorites()" v-bind:class="{active: isFavActive, sectn: true, tab1: true}">Favorite Posts</button>
+          <button id="post-btn" @click="showPosts()" v-bind:class="{active: isPostActive, sectn: true, tab1: true}">My Posts</button>
         </div>
         <div class="post-list">
           <p>Put favorited posts here?</p>
@@ -39,11 +39,19 @@ export default {
     return {
       error: "",
       user: null,
+      isFavActive: true,
+      isPostActive: false,
     };
   },
   computed: {
     isError() {
       return this.error == undefined;
+    },
+    numberOfPosts() {
+      return this.user.posts.length;
+    },
+    numberOfFavorites() {
+      return this.user.favorites.length;
     },
   },
   created() {
@@ -58,6 +66,20 @@ export default {
         this.error = error.response.data.message;
       }
     },
+    async showFavorites() {
+      if (this.isFavActive) {
+        return;
+      }
+      this.isFavActive = true;
+      this.isPostActive = false;
+    },
+    async showPosts() {
+      if (this.isPostActive) {
+        return;
+      }
+      this.isFavActive = false;
+      this.isPostActive = true;
+    },
   },
 };
 </script>
@@ -68,13 +90,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10em;
+  margin-bottom: 7em;
 }
 
 .content {
   background-color: rgb(140, 138, 255);
   border-radius: 1em;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   width: 90%;
@@ -85,9 +108,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60%;
-  width: 20%;
-  margin-top: 2em;
+  width: 80%;
 }
 
 .img-container {
@@ -96,7 +117,7 @@ export default {
   height: auto;
   flex-direction: column;
   margin-bottom: 1em;
-  margin-top: 1em;
+  margin-top: 2em;
 }
 
 .img-container img {
@@ -109,16 +130,26 @@ export default {
 .info {
   background-color: white;
   width: 100%;
+  border-radius: 0.2em;
+  margin-bottom: 2em;
+}
+
+.info h2 {
+  margin: 0.2em;
+}
+
+.info p {
+  margin: 0.1em;
 }
 
 .divider {
-     border-left:1px solid #666666;  
-     height:30em;
+     border-bottom: 1px solid #666666;  
+     width: 18em;
 }
 
 .posts {
   height: 60%;
-  width: 70%;
+  width: 90%;
 }
 
 .tab {
@@ -127,16 +158,26 @@ export default {
 
 .sectn {
   background-color: rgb(187, 187, 187);
-  width: 15%;
+  width: 35%;
   margin-top: 2em;
-  font-size: 1.5em;
+  font-size: 1em;
   border-style: none;
   border-radius: 0.2em 0.2em 0 0;
+  padding: 0.3em;
 }
 
-.tab1:focus, .tab2:focus {
+.sectn:active {
+  outline: none;
+}
+
+.sectn:hover {
+  cursor: pointer;
+}
+
+.active {
   background-color: white;
   outline: none;
+  cursor: default !important;
 }
 
 .post-list {
@@ -148,11 +189,72 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5em;
+  margin-bottom: 2em;
 }
 
 .post-list p {
-  margin: 2em;
+  margin: 1em;
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .info-container {
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .info {
+    width: 50%;
+    margin-bottom: 0em;
+  }
+
+  .divider {
+     width: 25em;
+  }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .user {
+    margin-bottom: 10em;
+  }
+
+  .content {
+    flex-direction: row;
+  }
+
+  .info-container {
+    width: 20%;
+  }
+
+  .img-container {
+    margin-top: 0;
+  }
+
+  .info {
+    margin-bottom: 0;
+  }
+
+  .divider {
+     border-left:1px solid #666666;  
+     height: 20em;
+     border-bottom: 0;
+     width: 0;
+  }
+
+  .sectn {
+    font-size: 1.5em;
+    width: 20%;
+  }
+
+  .posts {
+    width: 70%;
+  }
+
+  .post-list {
+      margin-bottom: 5em;
+  }
 }
 
 </style>

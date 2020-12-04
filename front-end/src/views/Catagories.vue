@@ -2,26 +2,21 @@
   <div class="catagories">
     <h1>This is our categories page</h1>
     <br/>
-
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/catagories">Categories</router-link> |
-      <router-link to="/post">Post</router-link>
+    <div class="buttons">
+      <button id="religion-btn" @click="getPosts("religion")">Religion</button>
+      <button id="life-btn" @click="getPosts("life")">Life</button>
+      <button id="cooking-btn" @click="getPosts("cooking")">Cooking</button>
     </div>
 
-    <div id="toReplace">
-        <div :is="currentComponent"></div>
-        <div v-show="!currentComponent" v-for="component in componentsArray">
-          <button @click="swapComponent(component)">{{component}}</button>
-        </div>
-    </div>
+    <Category :data=""
 
   </div>
 </template>
 
 <script>
-import Category from "../components/Category.vue"
+import axios from "axios";
+import Category from "../components/Category.vue";
+
 export default {
   name: 'Categories',
   components: {
@@ -29,12 +24,16 @@ export default {
   },
   data() {
     return {
+      
     }
   },
   computed: {
-    posts() {
-      return this.$root.$data.posts; // FIXME get from posts with category name in Mongo
-    }
+
+  },
+  methods: {
+    getPosts(category) {
+
+    },
   },
 }
 </script>
