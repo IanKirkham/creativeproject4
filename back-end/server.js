@@ -191,8 +191,8 @@ app.put('/api/reply/:id', async (req, res) => {
       author: req.body.author,
       id: Math.floor(Math.random() * 10000) + 1,
     };
-    post.replies.push(reply);
-    res.sendStatus(200);
+    await post.replies.push(reply);
+    res.send(post);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

@@ -90,12 +90,13 @@ export default {
     },
     async addReply() {
       try {
-        await axios.put("/api/reply/" + this.post._id, {
+        let response = await axios.put("/api/reply/" + this.post._id, {
           reply: {
             content: this.addedComment,
             author: this.addedName,
           },
         });
+        this.post = response.data;
       } catch (error) {
         console.log(error);
       }
