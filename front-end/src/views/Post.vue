@@ -48,7 +48,10 @@ export default {
   data() {
     return {
       post: null,
-      user: null,
+      user: {
+        username: "ian",
+        avatar: "https://img.icons8.com/ios/100/000000/login-as-user.png",
+      },
       liked: false,
       addedName: "",
       addedComment: "",
@@ -69,7 +72,7 @@ export default {
     async getPost(id) {
       try {
         let post = await axios.get("api/post/" + id);
-        this.post = post;
+        this.post = post.data;
       } catch (error) {
         console.log(error);
       }
