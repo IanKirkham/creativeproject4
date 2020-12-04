@@ -2,7 +2,7 @@
   <div v-if="post" class="post">
     <div class="post-container">
       <div class="main-post">
-        <div class="post-info">  
+        <div v-if="user" class="post-info">  
           <img :src="user.avatar">
           <p>Author: {{post.author}}</p>
           <p>Date Posted: {{post.date_posted}}</p>
@@ -32,7 +32,7 @@
       <h3>Reply <i class="fas fa-reply"></i></h3>
       <form v-on:submit.prevent="addReply()">
         <input v-model="addedName" placeholder="Name">
-        <textarea v-model="addedComment"></textarea>
+        <textarea v-model="addedComment" placeholder="Reply here"></textarea>
         <br />
         <button id="comment-btn" type="submit">Reply</button>
       </form>
@@ -48,10 +48,7 @@ export default {
   data() {
     return {
       post: null,
-      user: {
-        username: "ian",
-        avatar: "https://img.icons8.com/ios/100/000000/login-as-user.png",
-      },
+      user: null,
       liked: false,
       addedName: "",
       addedComment: "",
@@ -69,18 +66,43 @@ export default {
     this.getPost(this.$route.params.id);
   },
   methods: {
-    async getPost(id) {
+    async getUser() {
       try {
-        let post = await axios.get("api/post/" + id);
-        this.post = post.data;
+        let response = await axios.get("/api/user/" + this.post.author);
+        this.user = response.data.user;
       } catch (error) {
         console.log(error);
       }
     },
-    toggleFav() {
+    async getPost(id) {
+      try {
+        let post = await axios.get("api/post/" + id);
+        this.post = post.data;
+        this.getUser();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async toggleFav() {
+
+      try {
+
+        if (this.user == undefined) {
+          return;
+        }
+
+        let response = await axios.put("/api/favorite", {
+          username: this.$root.$data.user,
+          post: this.post._id,
+        });
+        this.post = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+
       this.post.favorite = !this.post.favorite;
     },
-    toggleLike() {
+    async toggleLike() {
       if(this.liked) {
         this.post.likes -= 1;
       } else {
@@ -91,12 +113,12 @@ export default {
     async addReply() {
       try {
         let response = await axios.put("/api/reply/" + this.post._id, {
-          reply: {
             content: this.addedComment,
             author: this.addedName,
-          },
         });
         this.post = response.data;
+        this.addedComment = "";
+        this.addedName = "";
       } catch (error) {
         console.log(error);
       }
