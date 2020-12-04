@@ -90,13 +90,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10em;
+  margin-bottom: 7em;
 }
 
 .content {
   background-color: rgb(140, 138, 255);
   border-radius: 1em;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   width: 90%;
@@ -107,7 +108,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 20%;
+  width: 80%;
 }
 
 .img-container {
@@ -116,6 +117,7 @@ export default {
   height: auto;
   flex-direction: column;
   margin-bottom: 1em;
+  margin-top: 2em;
 }
 
 .img-container img {
@@ -129,16 +131,25 @@ export default {
   background-color: white;
   width: 100%;
   border-radius: 0.2em;
+  margin-bottom: 2em;
+}
+
+.info h2 {
+  margin: 0.2em;
+}
+
+.info p {
+  margin: 0.1em;
 }
 
 .divider {
-     border-left:1px solid #666666;  
-     height:30em;
+     border-bottom: 1px solid #666666;  
+     width: 18em;
 }
 
 .posts {
   height: 60%;
-  width: 70%;
+  width: 90%;
 }
 
 .tab {
@@ -147,11 +158,12 @@ export default {
 
 .sectn {
   background-color: rgb(187, 187, 187);
-  width: 15%;
+  width: 35%;
   margin-top: 2em;
-  font-size: 1.5em;
+  font-size: 1em;
   border-style: none;
   border-radius: 0.2em 0.2em 0 0;
+  padding: 0.3em;
 }
 
 .sectn:active {
@@ -177,11 +189,72 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5em;
+  margin-bottom: 2em;
 }
 
 .post-list p {
-  margin: 2em;
+  margin: 1em;
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .info-container {
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .info {
+    width: 50%;
+    margin-bottom: 0em;
+  }
+
+  .divider {
+     width: 25em;
+  }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .user {
+    margin-bottom: 10em;
+  }
+
+  .content {
+    flex-direction: row;
+  }
+
+  .info-container {
+    width: 20%;
+  }
+
+  .img-container {
+    margin-top: 0;
+  }
+
+  .info {
+    margin-bottom: 0;
+  }
+
+  .divider {
+     border-left:1px solid #666666;  
+     height:30em;
+     border-bottom: 0;
+     width: 0;
+  }
+
+  .sectn {
+    font-size: 1.5em;
+    width: 20%;
+  }
+
+  .posts {
+    width: 70%;
+  }
+
+  .post-list {
+      margin-bottom: 5em;
+  }
 }
 
 </style>
