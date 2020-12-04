@@ -11,6 +11,7 @@
           <p>My Posts: {{numberOfPosts}}</p>
           <p>My Favorite Posts: {{numberOfFavorites}}</p>
         </div>
+        <button id="delete-btn" @click="removeAccount()">Delete Account</button>
       </div>
       <div class="divider"></div>
       <div class="posts">
@@ -84,9 +85,6 @@ export default {
       }
       this.isFavActive = true;
       this.isPostActive = false;
-
-      
-
     },
     async showPosts() {
       if (this.isPostActive) {
@@ -94,10 +92,16 @@ export default {
       }
       this.isFavActive = false;
       this.isPostActive = true;
-
-
-
     },
+    async removeAccount() {
+      try {
+        await axios.delete("/api/user/" + this.$root.$data.user);
+        this.$root.$data.user = null;
+        this.$router.push('/');
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
 };
 </script>
@@ -209,6 +213,31 @@ export default {
   align-items: center;
   margin-bottom: 2em;
   height: 20em;
+}
+
+#delete-btn {
+  background-color: #c73636;
+  color: #FFF;
+  border-style: none;
+  border-radius: 0.3em;
+  padding: 0.7em;
+  margin: 0.5em;
+  margin-top: 2em;
+}
+
+#delete-btn:hover {
+  background-color: transparent;
+  border: 1px solid #c73636;
+  color: #c73636;;
+  cursor: pointer;
+}
+
+#delete-btn:active {
+  outline: none;
+}
+
+#delete-btn:focus {
+  outline: none;
 }
 
 /* Tablet */

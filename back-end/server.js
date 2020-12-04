@@ -135,6 +135,19 @@ app.get('/api/user/:username', async (req, res) => {
   }
 });
 
+// Delete User Account
+app.delete('/api/user/:username', async (req, res) => {
+  try {
+    await User.findOneAndDelete({
+      username: req.params.username,
+    });
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 // Get Category Posts
 app.get('/api/posts/:category', async (req, res) => {
   try {
@@ -204,6 +217,9 @@ app.put('/api/favorite', async (req, res) => {
     let user = await User.findOne({
       username: req.body.username,
     });
+    let post = await Post.findOne({
+      _id: req.body.post,
+    });
     await user.favorites.push(req.body.post);
     user.save();
     post.favorite = true;
@@ -214,23 +230,22 @@ app.put('/api/favorite', async (req, res) => {
   }
 });
 
-app.put('/api/update', async (req, res) => {
+// Remove post from users favorites
+app.put('/api/favorite/remove', async (req, res) => {
   try {
-    const user = new User({
-      username: req.body.user.username,
-      password: req.body.user.password,
-      avatar: req.body.user.avatar,
-      posts: req.body.user.posts,
-      favorites: req.body.user.favorites,
-      date_joined: req.body.user.date,
+    let user = await User.findOne({
+      username: req.body.username,
     });
-
+    console.log("here");
+    var filtered = user.favorites.filter(id => id != req.body.post);
+    user.favorites = filtered;
     user.save();
+    post.favorite = false;
+    post.save();
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
 });
-
 
 app.listen(3001, () => console.log('Server listening on port 3001!'));
