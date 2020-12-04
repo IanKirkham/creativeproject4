@@ -238,7 +238,7 @@ export default {
 
   .divider {
      border-left:1px solid #666666;  
-     height:30em;
+     height: 20em;
      border-bottom: 0;
      width: 0;
   }
